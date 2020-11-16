@@ -4,7 +4,7 @@
 
 import os
 import sys
-from .sea5kg_cpplint import Sea5kgCppLint
+from sea5kg_cpplint import Sea5kgCppLint
 
 if __name__ == "__main__":
     ROOT_DIR = os.path.abspath(".")

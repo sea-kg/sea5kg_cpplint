@@ -17,5 +17,9 @@ check_ret() {
 
 cd sea5kg_cpplint
 check_ret $? "change directory to sea5kg_cpplint"
+
+python3 -m pylint --version
+check_ret $? "pylint --version"
+
 python3 -m pylint --rcfile=../.pylintrc *.py
 check_ret $? "pylint"
