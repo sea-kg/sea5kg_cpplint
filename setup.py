@@ -10,7 +10,7 @@ setuptools.setup(
     keywords=['cpplint'],
     author='Evgenii Sopov',
     author_email='mrseakg@gmail.com',
-    description='FreeHackQuest Python Client Library for fhq-server',
+    description='Python App for cpplint',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/sea-kg/sea5kg_cpplint',
