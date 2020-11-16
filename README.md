@@ -1,2 +1,3 @@
-# sea5kg-cpplint
-Nice configurable cpplint (c++ code lint)
+# sea5kg_cpplint
+Nice configurable cpplint (c++ source code lint) on Python
+
