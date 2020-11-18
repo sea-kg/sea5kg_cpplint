@@ -1,6 +1,6 @@
 # sea5kg_cpplint
 
-[![PyPI version](https://badge.fury.io/py/sea5kg-cpplint.svg)](https://badge.fury.io/py/sea5kg-cpplint) [![Build Status](https://api.travis-ci.com/sea-kg/sea5kg_cpplint.svg?branch=master)](https://travis-ci.com/sea-kg/sea5kg_cpplint) [![Total alerts](https://img.shields.io/lgtm/alerts/g/sea-kg/sea5kg_cpplint.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sea-kg/sea5kg_cpplint/alerts/) [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/sea-kg/sea5kg_cpplint.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sea-kg/sea5kg_cpplint/context:python) 
+[![PyPI version](https://badge.fury.io/py/sea5kg-cpplint.svg)](https://badge.fury.io/py/sea5kg-cpplint) [![Build Status](https://api.travis-ci.com/sea-kg/sea5kg_cpplint.svg?branch=dev)](https://travis-ci.com/sea-kg/sea5kg_cpplint) [![Total alerts](https://img.shields.io/lgtm/alerts/g/sea-kg/sea5kg_cpplint.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sea-kg/sea5kg_cpplint/alerts/) [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/sea-kg/sea5kg_cpplint.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/sea-kg/sea5kg_cpplint/context:python) 
 
 Nice configurable cpplint (c++ source code lint) on Python
 
