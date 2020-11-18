@@ -1,3 +1,5 @@
+"""Generic Setup script, takes package info from __pkginfo__.py file."""
+
 import setuptools
 
 with open('README.md', 'r') as fh:

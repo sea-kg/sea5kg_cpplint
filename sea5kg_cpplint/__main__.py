@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Copyright (c) 2020 Evgenii sopov <mrseakg@gmail.com>
+
 """Library for cpplint"""
 
 import os
