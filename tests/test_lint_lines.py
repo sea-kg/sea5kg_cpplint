@@ -4,10 +4,10 @@
 
 # Copyright (c) 2020 Evgenii Sopov <mrseakg@gmail.com>
 
-# pylint: disable=wrong-import-position
+# pylint: disable=relative-beyond-top-level,wrong-import-position,import-error
 
 import sys
-sys.path.append("..") # Adds higher directory to python modules path.
+sys.path.insert(0,'..') # Adds higher directory to python modules path.
 from sea5kg_cpplint import Sea5kgCppLint
 
 def test_line_limit_length():

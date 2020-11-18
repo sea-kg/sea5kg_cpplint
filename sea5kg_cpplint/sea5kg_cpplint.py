@@ -2,10 +2,12 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2020 Evgenii sopov <mrseakg@gmail.com>
 
+# pylint: disable=relative-beyond-top-level
+
 """cpplint parser of config"""
 
 import os
-from sea5kg_cpplint_config import Sea5kgCppLintConfig
+from .sea5kg_cpplint_config import Sea5kgCppLintConfig
 
 class Sea5kgCppLint:
     """cpplint main class"""

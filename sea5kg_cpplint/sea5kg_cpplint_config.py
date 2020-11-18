@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2020 Evgenii sopov <mrseakg@gmail.com>
 
+# pylint: disable=relative-beyond-top-level
+
 """cpplint parser of config"""
 
 import os
