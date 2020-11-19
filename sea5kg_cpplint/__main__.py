@@ -6,7 +6,7 @@
 
 import os
 import sys
-from sea5kg_cpplint import Sea5kgCppLint
+from sea5kg_cpplint.sea5kg_cpplint import Sea5kgCppLint
 from sea5kg_cpplint.__pkginfo__ import version
 from sea5kg_cpplint.__pkginfo__ import name
 
