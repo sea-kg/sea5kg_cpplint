@@ -9,7 +9,8 @@
 # For an official release, use dev_version = None
 numversion = (0, 0, 1)
 
-VERSION = ".".join(str(num) for num in numversion)
+version = ".".join(str(num) for num in numversion)
+name = "sea5kg_cpplint"
 
 dependency_links = []
 
@@ -17,7 +18,6 @@ license = "MIT"
 description = "c++ code static checker"
 web = "https://github.com/sea-kg/sea5kg_cpplint"
 mailinglist = "mailto:mrseakg@gmail.com"
-project_urls = {"What's New": "https://pylint.pycqa.org/en/latest/whatsnew/"}
 author = "Evgenii Sopov"
 author_email = "mrseakg@gmail.com"
 

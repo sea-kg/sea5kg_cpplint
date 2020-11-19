@@ -4,7 +4,7 @@
 
 """Library for cpplint"""
 
-from sea5kg_cpplint.__pkginfo__ import VERSION as __version__
+from sea5kg_cpplint.__pkginfo__ import version as __version__
 
 from sea5kg_cpplint.sea5kg_cpplint import *
 from sea5kg_cpplint.sea5kg_cpplint_config import *
