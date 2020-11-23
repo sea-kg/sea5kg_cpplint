@@ -23,5 +23,5 @@ $ python3 -m pip install .
 ```
 
 ```
-$ pip3 uninstall sea5kg-package
+$ pip3 uninstall sea5kg-cpplint
 ```

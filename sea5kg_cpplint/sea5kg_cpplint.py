@@ -8,6 +8,7 @@
 
 import os
 from .sea5kg_cpplint_config import Sea5kgCppLintConfig
+from .sea5kg_cpplint_checkers_for_line import LINE_CHECKERS
 
 class Sea5kgCppLint:
     """cpplint main class"""
@@ -54,7 +55,7 @@ class Sea5kgCppLint:
         if self._config.is_allow_file_extension(nr_file):
             if not self._check_copyright_in_files(nr_file):
                 result = False
-            if not self._check_lines_length_limit(nr_file):
+            if not self._check_lines_in_file(nr_file):
                 result = False
         return result
 
@@ -69,14 +70,15 @@ class Sea5kgCppLint:
                 return False
         return True
 
-    def _check_lines_length_limit(self, nr_file):
+    def _check_lines_in_file(self, nr_file):
         """_check_copyright_in_files"""
+        ret = True
         with open(nr_file) as _file:
             lines = _file.readlines()
             count = 0
             for line in lines:
                 count = count + 1
-                if len(line) > self._config.get_line_length_limit():
-                    print("Line too long " + nr_file + ":" + str(count))
-                    return False
-        return True
+                for checker in LINE_CHECKERS:
+                    if not checker["func_check"](self._config, line, nr_file, count):
+                        ret = False
+        return ret
