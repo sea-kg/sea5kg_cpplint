@@ -77,6 +77,7 @@ class Sea5kgCppLint:
             count = 0
             for line in lines:
                 count = count + 1
+                # TODO parse line to elements (string, whitespaces operators and etc...)
                 for checker in LINE_CHECKERS:
                     cnf = self._config.get(checker["config"])
                     if not checker["func_check"](cnf, line, nr_file, count):

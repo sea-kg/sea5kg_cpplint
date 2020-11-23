@@ -103,21 +103,19 @@ class Sea5kgCppLintConfig:
                 return True
         return False
 
-    def get_line_length_limit(self):
-        """get_line_length_limit"""
-        return self._config['line_length_limit']
-
     def is_check_copyright(self):
         """is_check_copyright"""
         return self._config['check_copyright_in_files']
 
+    # TODO move to errors
     def _err_expected_eq(self, line_content, _cnf_file, count):
         return """
         {}: Expected '=' in line
         line_content = {}
         in line {}:{}
         """.format(self._err_prefix, line_content, _cnf_file, count)
-
+    
+    # TODO move to errors
     def _err_in_regexp(self, pc_name, pc_value, err, _cnf_file, count):
         return """
         {}: Problem with regexp 
