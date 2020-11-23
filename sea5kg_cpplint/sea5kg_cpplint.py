@@ -43,21 +43,20 @@ class Sea5kgCppLint:
         _ret = True
         for _file in files:
             nr_file = os.path.join(r_dir, _file)
-            if not self._research_file(nr_file):
+            if self._research_file(nr_file) != 0:
                 _ret = False
         return _ret
 
     def _research_file(self, nr_file):
         """_research_file"""
+        ret = 0
         if self._config.is_ignore(nr_file):
-            return True
-        result = True
+            return ret
         if self._config.is_allow_file_extension(nr_file):
             if not self._check_copyright_in_files(nr_file):
-                result = False
-            if not self._check_lines_in_file(nr_file):
-                result = False
-        return result
+                ret = ret + 1
+            ret = ret + self._check_lines_in_file(nr_file)
+        return ret
 
     def _check_copyright_in_files(self, nr_file):
         """_check_copyright_in_files"""
@@ -72,13 +71,14 @@ class Sea5kgCppLint:
 
     def _check_lines_in_file(self, nr_file):
         """_check_copyright_in_files"""
-        ret = True
+        ret = 0
         with open(nr_file) as _file:
             lines = _file.readlines()
             count = 0
             for line in lines:
                 count = count + 1
                 for checker in LINE_CHECKERS:
-                    if not checker["func_check"](self._config, line, nr_file, count):
-                        ret = False
+                    cnf = self._config.get(checker["config"])
+                    if not checker["func_check"](cnf, line, nr_file, count):
+                        ret = ret + 1
         return ret

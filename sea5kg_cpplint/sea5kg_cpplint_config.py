@@ -9,6 +9,10 @@
 import os
 import sys
 import re
+import numbers
+from .sea5kg_cpplint_checkers_for_line import LINE_CHECKERS
+from .sea5kg_cpplint_errors import error_unsupported_param
+from .sea5kg_cpplint_errors import error_conf_alredy_defined
 
 class Sea5kgCppLintConfig:
     """cpplint parser of config"""
@@ -20,10 +24,18 @@ class Sea5kgCppLintConfig:
         self._root_dir_len = len(self._root_dir)+1
         self._config = {
             'file_extensions': ['.cpp', '.h', '.cc', '.c', '.hpp'],
-            'line_length_limit': 80,
             'check_copyright_in_files': True,
             'skip_files': [],
         }
+        for checker in LINE_CHECKERS:
+            if 'config' in checker:
+                _cnf = checker["config"]
+                for cnf_name in _cnf:
+                    print(cnf_name)
+                    if cnf_name in self._config:
+                        sys.exit(error_conf_alredy_defined(checker["id"], cnf_name))
+                    else:
+                        self._config[cnf_name] = _cnf[cnf_name]
 
     def apply(self, _root_dir):
         """search, parse and load file configs"""
@@ -39,7 +51,6 @@ class Sea5kgCppLintConfig:
         """parse and keep config file"""
         with open(_cnf_file, 'r') as file1:
             lines = file1.readlines()
-
             count = 0
             for line in lines:
                 count = count + 1
@@ -52,22 +63,30 @@ class Sea5kgCppLintConfig:
                     sys.exit(self._err_expected_eq(line, _cnf_file, count))
                 pc_name = line.split('=')[0].strip()
                 pc_value = line.split('=')[1].strip()
+                self._set_param_config(pc_name, pc_value, _cnf_file, count)
 
-                if pc_name == 'line_length_limit':
-                    self._config['line_length_limit'] = int(pc_value)
-                elif pc_name == 'check_copyright_in_files':
-                    if pc_value == 'no':
-                        self._config['check_copyright_in_files'] = False
-                    else:
-                        self._config['check_copyright_in_files'] = True
-                elif pc_name == 'skip_files':
-                    try:
-                        pattern = re.compile(pc_value)
-                    except re.error as err:
-                        sys.exit(self._err_in_regexp(pc_name, pc_value, err, _cnf_file, count))
-                    self._config['skip_files'].append(pattern)
-                else:
-                    sys.exit(self._err_unsupported_param(pc_name, _cnf_file, count))
+    def _set_param_config(self, pc_name, pc_value, _cnf_file, count):
+        if pc_name in self._config:
+            default_val = self._config[pc_name]
+            if isinstance(default_val, numbers.Number):
+                print("default_val: " + str(default_val))
+                self._config[pc_name] = int(pc_value)
+                print("new_val: " + str(pc_value))
+            else:
+                self._config[pc_name] = pc_value
+        elif pc_name == 'check_copyright_in_files':
+            if pc_value == 'no':
+                self._config['check_copyright_in_files'] = False
+            else:
+                self._config['check_copyright_in_files'] = True
+        elif pc_name == 'skip_files':
+            try:
+                pattern = re.compile(pc_value)
+            except re.error as err:
+                sys.exit(self._err_in_regexp(pc_name, pc_value, err, _cnf_file, count))
+            self._config['skip_files'].append(pattern)
+        else:
+            sys.exit(error_unsupported_param(pc_name, _cnf_file, count))
 
     def is_allow_file_extension(self, filename):
         """is_allow_file_extension"""
@@ -108,8 +127,10 @@ class Sea5kgCppLintConfig:
         in line {}:{}
         """.format(self._err_prefix, pc_name, pc_value, str(err), _cnf_file, count)
 
-    def _err_unsupported_param(self, pc_name, _cnf_file, count):
-        return """
-        {}: Unsupported parameter {}
-        in line {}:{}
-        """.format(self._err_prefix, pc_name, _cnf_file, count)
+    def get(self, _cnf):
+        """ ger part of config """
+        for cnf_name in _cnf:
+            print(cnf_name)
+            if cnf_name in self._config:
+                _cnf[cnf_name] = self._config[cnf_name]
+        return _cnf
