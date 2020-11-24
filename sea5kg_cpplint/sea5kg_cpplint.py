@@ -9,6 +9,7 @@
 import os
 from .sea5kg_cpplint_config import Sea5kgCppLintConfig
 from .sea5kg_cpplint_checkers_for_line import LINE_CHECKERS
+from .sea5kg_cpplint_line_parser import Sea5kgCppLintLineParser
 
 class Sea5kgCppLint:
     """cpplint main class"""
@@ -77,9 +78,9 @@ class Sea5kgCppLint:
             count = 0
             for line in lines:
                 count = count + 1
-                # TODO parse line to elements (string, whitespaces operators and etc...)
+                parsed_line = Sea5kgCppLintLineParser(line, nr_file, count)
                 for checker in LINE_CHECKERS:
                     cnf = self._config.get(checker["config"])
-                    if not checker["func_check"](cnf, line, nr_file, count):
+                    if not checker["func_check"](cnf, parsed_line):
                         ret = ret + 1
         return ret

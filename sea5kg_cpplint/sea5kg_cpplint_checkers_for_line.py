@@ -16,9 +16,9 @@ from .sea5kg_cpplint_errors import error_whitespace_end_of_line
 
 LINE_CHECKERS = []
 
-def check_line_length_limit(_config, line, filename, number_of_line):
-    if len(line) > _config["line_length_limit"]:
-        error_line_too_long(filename, number_of_line)
+def check_line_length_limit(_config, parsed_line):
+    if len(parsed_line.get_line()) > _config["line_length_limit"]:
+        error_line_too_long(parsed_line)
         return False
     return True
 
@@ -30,9 +30,9 @@ LINE_CHECKERS.append({
     }
 })
 
-def check_line_whitespace_before_equal(_config, line, filename, number_of_line):
-    if re.match(r'.*[^= ]+=.*', line):
-        error_whitespace_before_equal(filename, number_of_line)
+def check_line_whitespace_before_equal(_config, parsed_line):
+    if re.match(r'.*[^= ]+=.*', parsed_line.get_line()):
+        error_whitespace_before_equal(parsed_line)
         return False
     return True
 
@@ -42,9 +42,9 @@ LINE_CHECKERS.append({
     "config": {}
 })
 
-def check_line_whitespace_after_equal(_config, line, filename, number_of_line):
-    if re.match(r'.*=[^= ]+.*', line):
-        error_whitespace_after_equal(filename, number_of_line)
+def check_line_whitespace_after_equal(_config, parsed_line):
+    if re.match(r'.*=[^= ]+.*', parsed_line.get_line()):
+        error_whitespace_after_equal(parsed_line)
         return False
     return True
 
@@ -54,9 +54,9 @@ LINE_CHECKERS.append({
     "config": {}
 })
 
-def check_line_whitespace_comment(_config, line, filename, number_of_line):
-    if re.match(r'.*//[^! ]+.*', line):
-        error_whitespace_comment(filename, number_of_line)
+def check_line_whitespace_comment(_config, parsed_line):
+    if re.match(r'.*//[^! ]+.*', parsed_line.get_line()):
+        error_whitespace_comment(parsed_line)
         return False
     return True
 
@@ -66,9 +66,9 @@ LINE_CHECKERS.append({
     "config": {}
 })
 
-def check_line_whitespace_end_of_line(_config, line, filename, number_of_line):
-    if re.match(r'.*[ ]+$', line):
-        error_whitespace_end_of_line(filename, number_of_line)
+def check_line_whitespace_end_of_line(_config, parsed_line):
+    if re.match(r'.*[ ]+$', parsed_line.get_line()):
+        error_whitespace_end_of_line(parsed_line)
         return False
     return True
 

@@ -8,6 +8,8 @@
 
 import sys
 sys.path.insert(0,'..') # Adds higher directory to python modules path.
+
+from sea5kg_cpplint.sea5kg_cpplint_line_parser import Sea5kgCppLintLineParser
 from sea5kg_cpplint.sea5kg_cpplint_checkers_for_line import check_line_length_limit
 from sea5kg_cpplint.sea5kg_cpplint_checkers_for_line import check_line_whitespace_after_equal
 from sea5kg_cpplint.sea5kg_cpplint_checkers_for_line import check_line_whitespace_end_of_line
@@ -23,7 +25,8 @@ def test_line_limit_length():
     _config = {"line_length_limit": 10}
     for i in lines:
         print(i["line"])
-        assert check_line_length_limit(_config, i["line"], 'file', 0) is i["result"]
+        parsed_line = Sea5kgCppLintLineParser(i["line"], 'file', 0)
+        assert check_line_length_limit(_config, parsed_line) is i["result"]
 
 def test_line_whitespace_after_equal():
     """Line Whitespace after '='"""
@@ -39,7 +42,8 @@ def test_line_whitespace_after_equal():
     ]
     for i in lines:
         print(i["line"])
-        assert check_line_whitespace_after_equal({}, i["line"], 'file', 0) is i["result"]
+        parsed_line = Sea5kgCppLintLineParser(i["line"], 'file', 0)
+        assert check_line_whitespace_after_equal({}, parsed_line) is i["result"]
 
 def test_line_whitespace_end_of_line():
     """test_line_whitespace_end_of_line"""
@@ -50,7 +54,8 @@ def test_line_whitespace_end_of_line():
     ]
     for i in lines:
         print(i["line"])
-        assert check_line_whitespace_end_of_line({}, i["line"], 'file', 0) is i["result"]
+        parsed_line = Sea5kgCppLintLineParser(i["line"], 'file', 0)
+        assert check_line_whitespace_end_of_line({}, parsed_line) is i["result"]
 
 def test_line_whitespace_comment():
     """check_line_whitespace_comment"""
@@ -62,4 +67,5 @@ def test_line_whitespace_comment():
     ]
     for i in lines:
         print(i["line"])
-        assert check_line_whitespace_comment({}, i["line"], 'file', 0) is i["result"]
+        parsed_line = Sea5kgCppLintLineParser(i["line"], 'file', 0)
+        assert check_line_whitespace_comment({}, parsed_line) is i["result"]

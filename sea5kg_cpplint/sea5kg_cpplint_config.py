@@ -11,8 +11,11 @@ import sys
 import re
 import numbers
 from .sea5kg_cpplint_checkers_for_line import LINE_CHECKERS
-from .sea5kg_cpplint_errors import error_unsupported_param
+from .sea5kg_cpplint_errors import error_conf_unsupported_param
 from .sea5kg_cpplint_errors import error_conf_alredy_defined
+from .sea5kg_cpplint_errors import error_conf_expected_eq
+from .sea5kg_cpplint_errors import error_conf_in_regexp
+from .sea5kg_cpplint_errors import error_conf_file_not_exists
 
 class Sea5kgCppLintConfig:
     """cpplint parser of config"""
@@ -45,7 +48,7 @@ class Sea5kgCppLintConfig:
         if os.path.isfile(_cnf_file):
             self.apply_cnf_file(_cnf_file)
         else:
-            sys.exit('ERROR: File did not exists ' + _cnf_file)
+            sys.exit(error_conf_file_not_exists(_cnf_file))
 
     def apply_cnf_file(self, _cnf_file):
         """parse and keep config file"""
@@ -60,7 +63,7 @@ class Sea5kgCppLintConfig:
                 if line == '':
                     continue
                 if '=' not in line:
-                    sys.exit(self._err_expected_eq(line, _cnf_file, count))
+                    sys.exit(error_conf_expected_eq(line, _cnf_file, count))
                 pc_name = line.split('=')[0].strip()
                 pc_value = line.split('=')[1].strip()
                 self._set_param_config(pc_name, pc_value, _cnf_file, count)
@@ -83,10 +86,10 @@ class Sea5kgCppLintConfig:
             try:
                 pattern = re.compile(pc_value)
             except re.error as err:
-                sys.exit(self._err_in_regexp(pc_name, pc_value, err, _cnf_file, count))
+                sys.exit(error_conf_in_regexp(pc_name, pc_value, err, _cnf_file, count))
             self._config['skip_files'].append(pattern)
         else:
-            sys.exit(error_unsupported_param(pc_name, _cnf_file, count))
+            sys.exit(error_conf_unsupported_param(pc_name, _cnf_file, count))
 
     def is_allow_file_extension(self, filename):
         """is_allow_file_extension"""
@@ -106,24 +109,6 @@ class Sea5kgCppLintConfig:
     def is_check_copyright(self):
         """is_check_copyright"""
         return self._config['check_copyright_in_files']
-
-    # TODO move to errors
-    def _err_expected_eq(self, line_content, _cnf_file, count):
-        return """
-        {}: Expected '=' in line
-        line_content = {}
-        in line {}:{}
-        """.format(self._err_prefix, line_content, _cnf_file, count)
-    
-    # TODO move to errors
-    def _err_in_regexp(self, pc_name, pc_value, err, _cnf_file, count):
-        return """
-        {}: Problem with regexp 
-        name = {}
-        value = {}
-        error = {}
-        in line {}:{}
-        """.format(self._err_prefix, pc_name, pc_value, str(err), _cnf_file, count)
 
     def get(self, _cnf):
         """ ger part of config """
