@@ -74,3 +74,17 @@ def error_conf_file_not_exists(_cnf_file):
     name = {}
     """.format(_cnf_file)
     return ret
+
+def error_could_not_parse_line(_line, _file, _number_of_line):
+    ret = """error(00011): Could not parse line
+    line content = {}
+    in line = {}:{}
+    """.format(_line, _file, _number_of_line)
+    return ret
+
+def error_not_parse_line_character(_char, _line, _file, _number_of_line):
+    ret = """error(00012): Could not parse char '{}'
+    line content = {}
+    in line = {}:{}
+    """.format(_char, _line, _file, _number_of_line)
+    return ret

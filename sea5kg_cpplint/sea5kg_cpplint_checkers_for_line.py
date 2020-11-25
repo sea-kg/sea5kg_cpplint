@@ -31,9 +31,14 @@ LINE_CHECKERS.append({
 })
 
 def check_line_whitespace_before_equal(_config, parsed_line):
-    if re.match(r'.*[^= ]+=.*', parsed_line.get_line()):
-        error_whitespace_before_equal(parsed_line)
-        return False
+    literals = parsed_line.get_literals()
+    prev_lit = ''
+    for lit in literals:
+        if len(lit) > 0 and lit[0] == '=':
+            if (prev_lit) > 0 and prev_lit[len(prev_lit)-1] != ' ':
+                error_whitespace_before_equal(parsed_line)
+                return False
+        prev_lit = lit
     return True
 
 LINE_CHECKERS.append({
